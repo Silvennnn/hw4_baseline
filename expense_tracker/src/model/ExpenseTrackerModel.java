@@ -1,14 +1,13 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-public class ExpenseTrackerModel {
+public class ExpenseTrackerModel extends Observable {
 
   //encapsulation - data integrity
   private List<Transaction> transactions;
   private List<Integer> matchedFilterIndices;
+  private Set<ExpenseTrackerModelListener> observers = new HashSet<>();
 
   // This is applying the Observer design pattern.                          
   // Specifically, this is the Observable class. 
@@ -72,27 +71,40 @@ public class ExpenseTrackerModel {
   public boolean register(ExpenseTrackerModelListener listener) {
       // For the Observable class, this is one of the methods.
       //
-      // TODO
-      return false;
+      // TODO: finished
+      if (containsListener(listener)) {
+        return false;
+      } else {
+          this.observers.add(listener);
+          return true;
+      }
   }
 
   public int numberOfListeners() {
       // For testing, this is one of the methods.
       //
-      //TODO
-      return 0;
+      //TODO: finished
+      return this.observers.size();
   }
 
   public boolean containsListener(ExpenseTrackerModelListener listener) {
       // For testing, this is one of the methods.
       //
-      //TODO
-      return false;
+      //TODO: finished
+      if (this.observers.contains(listener)) {
+          return true;
+      } else {
+          return false;
+      }
   }
 
   protected void stateChanged() {
       // For the Observable class, this is one of the methods.
       //
-      //TODO
+      //TODO: finished
+      for (ExpenseTrackerModelListener observer : observers) {
+          observer.update(this);
+      }
+
   }
 }
