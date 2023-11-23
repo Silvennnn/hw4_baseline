@@ -25,12 +25,14 @@ public class ExpenseTrackerModel extends Observable {
     transactions.add(t);
     // The previous filter is no longer valid.
     matchedFilterIndices.clear();
+    stateChanged();
   }
 
   public void removeTransaction(Transaction t) {
     transactions.remove(t);
     // The previous filter is no longer valid.
     matchedFilterIndices.clear();
+    stateChanged();
   }
 
   public List<Transaction> getTransactions() {
@@ -48,9 +50,10 @@ public class ExpenseTrackerModel extends Observable {
 	      throw new IllegalArgumentException("Each matched filter index must be between 0 (inclusive) and the number of transactions (exclusive).");
 	  }
       }
-      // For encapsulation, copy in the input list 
+      // For encapsulation, copy in the input list
       this.matchedFilterIndices.clear();
       this.matchedFilterIndices.addAll(newMatchedFilterIndices);
+      stateChanged();
   }
 
   public List<Integer> getMatchedFilterIndices() {
@@ -72,7 +75,7 @@ public class ExpenseTrackerModel extends Observable {
       // For the Observable class, this is one of the methods.
       //
       // TODO: finished
-      if (containsListener(listener)) {
+      if (containsListener(listener) || listener == null) {
         return false;
       } else {
           this.observers.add(listener);
@@ -84,6 +87,7 @@ public class ExpenseTrackerModel extends Observable {
       // For testing, this is one of the methods.
       //
       //TODO: finished
+      System.out.println(this.observers.size());
       return this.observers.size();
   }
 
