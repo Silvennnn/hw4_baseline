@@ -87,7 +87,6 @@ public class ExpenseTrackerModel extends Observable {
       // For testing, this is one of the methods.
       //
       //TODO: finished
-      System.out.println(this.observers.size());
       return this.observers.size();
   }
 
