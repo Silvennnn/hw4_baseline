@@ -11,11 +11,18 @@ public class ExpenseTrackerModel extends Observable {
 
   // This is applying the Observer design pattern.                          
   // Specifically, this is the Observable class. 
-    
+
+
+    /**
+     * The Model handles the transactions in the application
+     * It has functions to add transaction, remove transactions, and filter the transaction fulfilling the conditions.
+     */
   public ExpenseTrackerModel() {
     transactions = new ArrayList<Transaction>();
     matchedFilterIndices = new ArrayList<Integer>();
   }
+
+
 
   public void addTransaction(Transaction t) {
     // Perform input validation to guarantee that all transactions added are non-null.
